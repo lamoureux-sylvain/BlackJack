@@ -6,4 +6,5 @@ class user:
     def gain(self):
         pass
     def hand(self):
-        pass
+        self.card=[]
+        self.value=0
