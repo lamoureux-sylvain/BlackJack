@@ -10,3 +10,5 @@ if __name__ == "__main__":
     table.get_in()
     user = User(table.nb_players)
     user.generate_player()
+    game = Game()
+    game.play()
