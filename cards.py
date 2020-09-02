@@ -7,4 +7,4 @@ class Card:
         self.value = value
 
     def __repr__(self):
-        return " of ".join((self.value, self.suit))
+        return " de ".join((self.value, self.suit))
