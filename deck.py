@@ -1,10 +1,20 @@
+import random
+
+from cards import Card
+
+
 class Deck:
     def __init__(self):
-        self.deck = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"]
-        self.cards_value = {"J": 10, "Q": 10, "K": 10}
+        self.cards = [
+            Card(s, v)
+            for s in ["Pique", "Trèfle", "Coeurs", "Carreaux"]
+            for v in ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
+        ]
 
-    def table_deck(self):
-        self.played_deck = self.deck
+    def shuffle(self):
+        if len(self.cards) > 1:
+            random.shuffle(self.cards)
 
-    def distribution(self):
-        pass
+    def deal(self):
+        if len(self.cards) > 1:
+            return self.cards.pop(0)
