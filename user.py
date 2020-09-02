@@ -17,7 +17,3 @@ class User:
 
     def generate_gain(self, tokken):
         self.tokken = tokken
-
-    def hand(self):
-        self.card = []
-        self.value = 0

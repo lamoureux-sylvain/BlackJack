@@ -1,6 +1,7 @@
 from menu import Menu
 from table import Table
 from user import User
+from deck import Deck
 
 if __name__ == "__main__":
     table = Table(0)
