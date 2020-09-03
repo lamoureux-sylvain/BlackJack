@@ -1,5 +1,6 @@
 from deck import Deck
 from hand import Hand
+from bet import Bet
 
 
 class Game:
@@ -12,6 +13,9 @@ class Game:
         while playing:
             self.deck = Deck()
             self.deck.shuffle()
+
+            self.bet = Bet(1000)
+            self.bet.drop_bet() 
 
             self.player_hand = Hand()
             self.dealer_hand = Hand(dealer=True)
