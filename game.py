@@ -1,6 +1,7 @@
 from deck import Deck
 from hand import Hand
 from bet import Bet
+from user import User
 
 
 class Game:
@@ -10,11 +11,15 @@ class Game:
     def play(self):
         playing = True
 
+        user = User([])
+        user.generate_player()
+        self.player_token = user.player_token
+
         while playing:
             self.deck = Deck()
             self.deck.shuffle()
 
-            self.bet = Bet(1000)
+            self.bet = Bet(self.player_token)
             self.bet.drop_bet() 
 
             self.player_hand = Hand()

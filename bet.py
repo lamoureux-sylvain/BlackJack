@@ -1,14 +1,25 @@
+from menu import Menu
+
 class Bet:
-    def __init__(self, tokens): #tokken init 1000
-        
-        self.tockens_player = tokens
+    def __init__(self, player_token): 
+        self.player_token = player_token
         self.table_bet = 0
 
     def drop_bet(self):
-        print("Vous avez", self.tockens_player,"jetons.")
-        while self.table_bet < 1 or self.table_bet > self.tockens_player:
+        print("Vous avez", self.player_token,"jetons.")
+        if self.player_token < 5:
+            print("Vous n'avez plus assez de jeton !!")
+            menu = Menu()
+            menu.main_title()
+        
+        while (self.table_bet < 5) or (self.table_bet > self.player_token):
             self.table_bet = int(input("Combien voulez vous parier ?"))
-        self.tockens_player -= self.table_bet
+            if self.table_bet < 5:
+                print("Vous devez parier au moins 5 jetons...")
+            elif self.table_bet > self.player_token:
+                print("Vous n'avez pas cette quantité de jeton...")
+
+        self.player_token -= self.table_bet
         print("Les jeux sont fait !!")
     
     def results_final(self):

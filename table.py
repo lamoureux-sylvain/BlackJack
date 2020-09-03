@@ -1,5 +1,6 @@
 from user import User
 
+#à utiliser pour une version plus avancée
 
 class Table:
     def __init__(self, nb_players):
@@ -15,6 +16,3 @@ class Table:
 
     def get_out(self):
         pass
-
-    def play(self):
-        print("\nLa partie peut commencer !")
