@@ -1,4 +1,3 @@
-import random
 class Bet:
     def __init__(self, tokens): #tokken init 1000
         
@@ -24,16 +23,3 @@ class Bet:
             print("vous gagnez!")
             self.tockens_player = self.score * 2
             print("votre mise mise est 2 fois augmentée")
-            
-
-
-if __name__ == "__main__":
-    bet = Bet(1000)     
-    bet.drop_bet()   
-            
-            
-  
-
-
-
-
