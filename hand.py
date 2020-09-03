@@ -33,6 +33,7 @@ class Hand:
     def display(self):
         if self.dealer:
             print("carte cachée")
+            print(self.cards[0])
             print(self.cards[1])
         else:
             for card in self.cards:

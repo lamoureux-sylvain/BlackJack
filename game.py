@@ -50,6 +50,15 @@ class Game:
                     player_hand_value = self.player_hand.get_value()
                     dealer_hand_value = self.dealer_hand.get_value()
 
+                    if (dealer_hand_value < 17) or (
+                        dealer_hand_value < player_hand_value
+                    ):
+                        while (dealer_hand_value < 17) or (
+                            dealer_hand_value < player_hand_value
+                        ):
+                            self.dealer_hand.add_card(self.deck.deal())
+                            dealer_hand_value = self.dealer_hand.get_value()
+
                     print("Score final")
                     print("Votre main:", player_hand_value)
                     print("Main de la banque:", dealer_hand_value)
@@ -57,7 +66,9 @@ class Game:
                     if player_hand_value > dealer_hand_value:
                         print("C'est gagné!")
                     elif player_hand_value == dealer_hand_value:
-                        print("Ex-aequo!")
+                        print("La Banque gagne!")
+                    elif dealer_hand_value > 21:
+                        print("C'est gagné!")
                     else:
                         print("La Banque gagne!")
                     game_over = True
@@ -93,3 +104,8 @@ class Game:
 
         elif dealer_has_blackjack:
             print("Blackjack pour la Banque!")
+
+
+if __name__ == "__main__":
+    game = Game()
+    game.play()
