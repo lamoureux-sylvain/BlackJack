@@ -3,17 +3,19 @@ from menu import Menu
 class Bet:
     def __init__(self, player_token): 
         self.player_token = player_token
-        self.table_bet = 0
+        self.game_over = ""
 
     def drop_bet(self):
+        self.table_bet = 0
         print("Vous avez", self.player_token,"jetons.")
         if self.player_token < 5:
-            print("Vous n'avez plus assez de jeton !!")
+            while self.game_over != "c":
+                self.game_over = input("Vous n'avez plus assez de jeton !! (C)").lower()
             menu = Menu()
             menu.main_title()
         
         while (self.table_bet < 5) or (self.table_bet > self.player_token):
-            self.table_bet = int(input("Combien voulez vous parier ?"))
+            self.table_bet = int(input("Combien voulez vous parier ? "))
             if self.table_bet < 5:
                 print("Vous devez parier au moins 5 jetons...")
             elif self.table_bet > self.player_token:
@@ -21,16 +23,18 @@ class Bet:
 
         self.player_token -= self.table_bet
         print("Les jeux sont fait !!")
+        return Bet(self.player_token)
     
-    def results_final(self):
-        if self.is_blackjack == True :
-            self.tockens_player += self.table_bet * 2.5
-            print("Votre mise est 2.5 fois augmentée")
+    def black_jack_gain(self):
+        self.player_token += self.table_bet * 3
+        print("Vous triplez votre mise !!!!")
+        print("Vous gagnez", self.table_bet*3,"jetons !!")
+        return Bet(self.player_token)
 
-        elif self.islost == True:
-            print("vous perdez")
-
-        else:
-            print("vous gagnez!")
-            self.tockens_player = self.score * 2
-            print("votre mise mise est 2 fois augmentée")
+    def win_gain(self):
+        self.player_token += self.table_bet * 2
+        print("Vous doublez votre mise !!")
+        print("Vous gagnez", self.table_bet*2,"jetons !!")
+        return Bet(self.player_token)
+        
+            

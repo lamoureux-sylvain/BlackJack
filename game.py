@@ -13,14 +13,19 @@ class Game:
 
         user = User([])
         user.generate_player()
-        self.player_token = user.player_token
+        self.players = user.players
+        self.bet = Bet(1000)
+        self.tour = 1
 
         while playing:
+            print("                         TOUR",self.tour,":")
+            print("--------------------------------------------------------------------\n")
+            self.tour += 1
             self.deck = Deck()
             self.deck.shuffle()
 
-            self.bet = Bet(self.player_token)
             self.bet.drop_bet() 
+            self.player_token = self.bet.player_token
 
             self.player_hand = Hand()
             self.dealer_hand = Hand(dealer=True)
@@ -31,8 +36,7 @@ class Game:
 
             print("Votre main:")
             self.player_hand.display()
-            print()
-            print("Main de la Banque:")
+            print("\nMain de la Banque:")
             self.dealer_hand.display()
 
             game_over = False
@@ -54,7 +58,9 @@ class Game:
                     self.player_hand.display()
                     if self.player_is_over():
                         print("C'est perdu !")
+                        print("Vous perdez", self.bet.table_bet,"jetons...")
                         game_over = True
+                        return Bet(self.player_token)
                 else:
                     player_hand_value = self.player_hand.get_value()
                     dealer_hand_value = self.dealer_hand.get_value()
@@ -73,12 +79,18 @@ class Game:
 
                     if player_hand_value > dealer_hand_value:
                         print("C'est gagné!")
+                        self.bet.win_gain()
                     elif player_hand_value == dealer_hand_value:
                         print("La Banque gagne!")
+                        print("Vous perdez", self.bet.table_bet,"jetons...")
+                        return Bet(self.player_token)
                     elif dealer_hand_value > 21:
                         print("C'est gagné!")
+                        self.bet.win_gain()
                     else:
                         print("La Banque gagne!")
+                        print("Vous perdez", self.bet.table_bet,"jetons...")
+                        return Bet(self.player_token)
                     game_over = True
 
             again = input("Continuer? [O/N] ")
@@ -104,12 +116,9 @@ class Game:
         return player, dealer
 
     def show_blackjack_results(self, player_has_blackjack, dealer_has_blackjack):
-        if player_has_blackjack and dealer_has_blackjack:
-            print("Blackjack pour le joueur et la Banque! Draw!")
-
-        elif player_has_blackjack:
-            print("Blackjack !!!!!! C'est gagné !!!!!!")
-
+        if player_has_blackjack:
+            print("Blackjack !!!!!! Bravo",self.players[0],"!!!!!!")
+            self.bet.black_jack_gain()
         elif dealer_has_blackjack:
             print("Blackjack pour la Banque!")
 
