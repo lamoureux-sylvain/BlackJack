@@ -54,14 +54,13 @@ class Game:
                     player_hand_value = self.player_hand.get_value()
                     dealer_hand_value = self.dealer_hand.get_value()
 
-                    if (dealer_hand_value < 17) or (
-                        dealer_hand_value < player_hand_value
-                    ):
-                        while (dealer_hand_value < 17) or (
-                            dealer_hand_value < player_hand_value
-                        ):
+                    if dealer_hand_value < 17:
+                        while dealer_hand_value < 17:
                             self.dealer_hand.add_card(self.deck.deal())
                             dealer_hand_value = self.dealer_hand.get_value()
+                            print("Le croupier doit retirer une carte")
+                            print("Main de la Banque:")
+                            self.dealer_hand.display()
 
                     print("Score final")
                     print("Votre main:", player_hand_value)

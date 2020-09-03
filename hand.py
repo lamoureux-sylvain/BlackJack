@@ -41,6 +41,7 @@ class Hand:
             print("carte cachée")
             print(self.cards[0])
             print(self.cards[1])
+
         else:
             for card in self.cards:
                 print(card)
