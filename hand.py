@@ -20,19 +20,11 @@ class Hand:
 
             else:
                 if card.value == "A":
-                    while (self.ace_value != "1") or (self.ace_value != "11"):
-                        print("------1-----")
-                        print(self.ace_value)
-                        print(self.value)
+                    while (self.ace_value != "1") and (self.ace_value != "11"):
                         self.ace_value = input(
                             "Quelle valeur donnez vous à l'As ? 1 ou 11 ?: "
                         )
-                    print("------2-----")
-                    print(self.ace_value)
-                    print(self.value)
                     self.value += int(self.ace_value)
-                    print("------3-----")
-                    print(self.value)
 
                 else:
                     self.value += 10
