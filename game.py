@@ -6,38 +6,65 @@ from user import User
 
 class Game:
     def __init__(self):
-        pass
+        #Initialisation des joueurs
+        self.user = User([])
+        #Appel de la méthode pour créer les joueurs
+        self.user.generate_player()
+        #Appel du nom des joueurs
+        self.players = self.user.players
+        #Initialisation des paris
+        self.bet = Bet(1000)
+        #Initialisation du paquet
+        self.deck = Deck()
+        #Appel de la méthode pour mélanger le paquet
+        self.deck.shuffle()
 
     def play(self):
+        #Initialisation de l'état de la partie
         playing = True
-
-        user = User([])
-        user.generate_player()
-        self.players = user.players
-        self.bet = Bet(1000)
+        
+        #Initialisation du nombre de tour
         self.tour = 1
 
+        #Partie
         while playing:
+            #Affichage du nombre de tour
             print("                         TOUR",self.tour,":")
             print("--------------------------------------------------------------------\n")
+            #Compteur de tour
             self.tour += 1
-            self.deck = Deck()
-            self.deck.shuffle()
-
+            
+            #Appel de la méthode pour parier
             self.bet.drop_bet() 
+            #Appel des jetons du joueur après pari
             self.player_token = self.bet.player_token
-
+            #Initialisation des mains des joueurs
             self.player_hand = Hand()
+            #Initialisation de la main du dealer
             self.dealer_hand = Hand(dealer=True)
 
-            for i in range(2):
-                self.player_hand.add_card(self.deck.deal())
-                self.dealer_hand.add_card(self.deck.deal())
+            #1e carte
+            self.nb_card = 1
+            #Le croupier distribue une 1e carte aux joueurs
+            self.player_hand.add_card(self.deck.deal())
+            #Le croupier se distribue une 1e carte
+            self.dealer_hand.add_card(self.deck.deal())
 
+            #2e carte
+            self.nb_card = 2
+            #Le croupier distribue une 1e carte aux joueurs
+            self.player_hand.add_card(self.deck.deal())
+            #Affichage de la main du joueur
             print("Votre main:")
-            self.player_hand.display()
+            self.player_hand.display(self.nb_card)
+            #Le croupier se distribue une 1e carte
+            self.dealer_hand.add_card(self.deck.deal())
+            #Affichage de la main du croupier         
             print("\nMain de la Banque:")
-            self.dealer_hand.display()
+            self.dealer_hand.display(self.nb_card)
+
+            #n carte suivante
+            self.nb_card = 3
 
             game_over = False
 
@@ -50,19 +77,21 @@ class Game:
                     )
                     continue
 
-                choice = input("Que voulez vous faire ? [Hit / Stick] ").lower()
-                while choice not in ["h", "s", "hit", "stick"]:
-                    choice = input("Entrer 'hit' ou 'stick' (ou H/S) ").lower()
-                if choice in ["hit", "h"]:
+                choice = input("Que voulez vous faire ? [Piocher / Sauver] ").lower()
+                while choice not in ["p", "s", "piocher", "sauver"]:
+                    choice = input("Entrer 'piocher' ou 'sauver' (ou P/S) ").lower()
+                if choice in ["piocher", "p"]:
                     self.player_hand.add_card(self.deck.deal())
-                    self.player_hand.display()
+                    self.player_hand.display(self.nb_card)
                     if self.player_is_over():
                         print("C'est perdu !")
                         print("Vous perdez", self.bet.table_bet,"jetons...")
                         game_over = True
-                        return Bet(self.player_token)
+                        Bet(self.player_token)
                 else:
                     player_hand_value = self.player_hand.get_value()
+                    print("\nMain de la Banque:")
+                    self.dealer_hand.display(self.nb_card)
                     dealer_hand_value = self.dealer_hand.get_value()
 
                     if dealer_hand_value < 17:
@@ -71,7 +100,7 @@ class Game:
                             dealer_hand_value = self.dealer_hand.get_value()
                             print("Le croupier doit retirer une carte")
                             print("Main de la Banque:")
-                            self.dealer_hand.display()
+                            self.dealer_hand.display(self.nb_card)
 
                     print("Score final")
                     print("Votre main:", player_hand_value)
@@ -81,16 +110,16 @@ class Game:
                         print("C'est gagné!")
                         self.bet.win_gain()
                     elif player_hand_value == dealer_hand_value:
-                        print("La Banque gagne!")
+                        print("Égalité... La Banque gagne!")
                         print("Vous perdez", self.bet.table_bet,"jetons...")
-                        return Bet(self.player_token)
+                        Bet(self.player_token)
                     elif dealer_hand_value > 21:
                         print("C'est gagné!")
                         self.bet.win_gain()
                     else:
                         print("La Banque gagne!")
                         print("Vous perdez", self.bet.table_bet,"jetons...")
-                        return Bet(self.player_token)
+                        Bet(self.player_token)
                     game_over = True
 
             again = input("Continuer? [O/N] ")
