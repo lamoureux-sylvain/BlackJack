@@ -6,7 +6,7 @@ class Hand:
         self.dealer = dealer
         self.cards = []
         self.value = 0
-        self.ace_value = 0
+        self.check_ace = False
 
     def add_card(self, card):
         self.cards.append(card)
@@ -18,41 +18,24 @@ class Hand:
                 if card.value.isnumeric():
                     self.value += int(card.value)
 
-                else:
-                    if self.cards[0].value == "A":
-                        self.value += 1
-                    if self.cards[1].value == "A":
-                        self.value += 11
-                        if self.value > 21:
-                            self.value -= 10
+                elif card.value == "A":
+                    self.aces()
 
-                    else:
-                        self.value += 10
+                else:
+                    self.value += 10
         else:
             for card in self.cards:
                 if card.value.isnumeric():
                     self.value += int(card.value)
 
-                else:
-                    
-                    if self.cards[0].value == "A":
-                        while (self.ace_value != "1") and (self.ace_value != "11"):
-                            self.ace_value = input(
-                                "Quelle valeur donnez vous à l'As ? 1 ou 11 ?: "
-                            )
-                        self.value += int(self.ace_value)
-                    if self.cards[1].value == "A":
-                        if self.value == 10:
-                            self.value = 11
-                        else:
-                            while (self.ace_value != "1") and (self.ace_value != "11"):
-                                self.ace_value = input(
-                                    "Quelle valeur donnez vous à l'As ? 1 ou 11 ?: "
-                                )
-                            self.value += int(self.ace_value)
-
+                elif card.value == "A" and not self.check_ace:
+                    if self.value <= 10:
+                        self.aces()
                     else:
-                        self.value += 10
+                        self.value += 1
+
+                else:
+                    self.value += 10
 
     def get_value(self):
         self.calculate_value()
@@ -77,3 +60,19 @@ class Hand:
                 for card in self.cards:
                     print(card)
                 print("Valeur:", self.get_value())
+
+    def aces(self):
+        if self.dealer:
+            self.value += 11
+            if self.value > 21:
+                self.value -= 10
+
+        else:
+            if self.value == 10:
+                self.value += 11
+            else:
+                self.ace_value = 0
+                while self.ace_value != "1" and self.ace_value != "11":
+                    self.ace_value = input("Valeur de l'As: 1 ou 11 : ")
+                self.check_ace = True
+                self.value += int(self.ace_value)

@@ -46,11 +46,11 @@ class Menu:
                     3. Syvain Lamoureux
                     3. Alexandre Vilbert
                     3. Étienne Rist
-                    4. Rolique Oponga\n"""
+                    3. Rolique Oponga\n"""
         )
-        while self.player_choice != "q":
-            self.player_choice = input("Menu principal (Q) : ").lower()
-        if self.player_choice == "q":
+        while self.player_choice != "m":
+            self.player_choice = input("Menu principal (M) : ").lower()
+        if self.player_choice == "m":
             Menu().main_title()
 
     def quit(self):
