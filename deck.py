@@ -18,3 +18,5 @@ class Deck:
     def deal(self):
         if len(self.cards) > 1:
             return self.cards.pop(0)
+        else:
+            print("Plus de carte...")
