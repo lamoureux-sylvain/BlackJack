@@ -57,13 +57,27 @@ class Game:
             # Le croupier distribue une 1e carte aux joueurs
             self.player_hand.add_card(self.deck.deal())
             # Affichage de la main du joueur
-            print("Votre main:")
+            print(
+                r"""+-------------------------------------------------------------------+"""
+            )
+            print("Votre main:\n")
             self.player_hand.display(self.nb_card)
+            print()
+            print(
+                r"""+-------------------------------------------------------------------+"""
+            )
             # Le croupier se distribue une 1e carte
             self.dealer_hand.add_card(self.deck.deal())
             # Affichage de la main du croupier
-            print("\nMain de la Banque:")
+            print(
+                r"""+-------------------------------------------------------------------+"""
+            )
+            print("Main de la Banque:\n")
             self.dealer_hand.display(self.nb_card)
+            print()
+            print(
+                r"""+-------------------------------------------------------------------+"""
+            )
 
             # n carte suivante
             self.nb_card = 3
@@ -79,32 +93,54 @@ class Game:
                     )
                     continue
 
-                choice = input("Que voulez vous faire ? [Piocher / Sauver] ").lower()
+                choice = input(
+                    "\n            Que voulez vous faire ? [Piocher / Sauver] "
+                ).lower()
                 while choice not in ["p", "s", "piocher", "sauver"]:
-                    choice = input("Entrer 'piocher' ou 'sauver' (ou P/S) ").lower()
+                    choice = input(
+                        "            Entrer 'piocher' ou 'sauver' (ou P/S) "
+                    ).lower()
                 if choice in ["piocher", "p"]:
                     self.player_hand.add_card(self.deck.deal())
                     self.player_hand.display(self.nb_card)
                     if self.player_is_over():
-                        print("C'est perdu !")
-                        print("Vous perdez", self.bet.table_bet, "jetons...")
+                        print("\n                          C'est perdu !")
+                        print(
+                            "\n                    Vous perdez",
+                            self.bet.table_bet,
+                            "jetons...",
+                        )
                         game_over = True
                         Bet(self.player_token)
                 else:
                     player_hand_value = self.player_hand.get_value()
+                    print()
+
+                    print(
+                        r"""+-------------------------------------------------------------------+"""
+                    )
                     print("\nMain de la Banque:")
                     self.dealer_hand.display(self.nb_card)
                     dealer_hand_value = self.dealer_hand.get_value()
+                    print()
 
                     if dealer_hand_value < 17:
                         while dealer_hand_value < 17:
                             self.dealer_hand.add_card(self.deck.deal())
                             dealer_hand_value = self.dealer_hand.get_value()
-                            print("Le croupier doit retirer une carte")
+                            print()
+                            print(
+                                r"""+-------------------------------------------------------------------+"""
+                            )
+                            print("\nLe croupier doit retirer une carte")
                             print("Main de la Banque:")
                             self.dealer_hand.display(self.nb_card)
+                            print()
+                            print(
+                                r"""+-------------------------------------------------------------------+"""
+                            )
 
-                    print("Score final")
+                    print("\nScore final")
                     print("Votre main:", player_hand_value)
                     print("Main de la banque:", dealer_hand_value)
 
@@ -124,11 +160,11 @@ class Game:
                         Bet(self.player_token)
                     game_over = True
 
-            again = input("Continuer? [O/N] ")
+            again = input("\nContinuer? [O/N] ")
             while again.lower() not in ["o", "n"]:
                 again = input("Entrer O ou N ")
             if again.lower() == "n":
-                print("Merci d'avoir joué!")
+                print("\nMerci d'avoir joué!")
                 playing = False
             else:
                 game_over = False
@@ -148,10 +184,10 @@ class Game:
 
     def show_blackjack_results(self, player_has_blackjack, dealer_has_blackjack):
         if player_has_blackjack:
-            print("Blackjack !!!!!! Bravo", self.players[0], "!!!!!!")
+            print("\nBlackjack !!!!!! Bravo", self.players[0], "!!!!!!")
             self.bet.black_jack_gain()
         elif dealer_has_blackjack:
-            print("Blackjack pour la Banque!")
+            print("\nBlackjack pour la Banque!")
 
 
 if __name__ == "__main__":
