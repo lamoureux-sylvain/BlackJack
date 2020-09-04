@@ -2,6 +2,7 @@ from deck import Deck
 from hand import Hand
 from bet import Bet
 from user import User
+from menu import Menu
 
 
 class Game:
@@ -29,6 +30,7 @@ class Game:
         # Partie
         while playing:
             # Affichage du nombre de tour
+
             print("                               TOUR", self.tour, ":")
             print(
                 "+-------------------------------------------------------------------+\n"
@@ -57,6 +59,7 @@ class Game:
             # Le croupier distribue une 1e carte aux joueurs
             self.player_hand.add_card(self.deck.deal())
             # Affichage de la main du joueur
+
             print(
                 r"""+-------------------------------------------------------------------+"""
             )
@@ -73,6 +76,7 @@ class Game:
                 r"""+-------------------------------------------------------------------+"""
             )
             print("Main de la Banque:\n")
+
             self.dealer_hand.display(self.nb_card)
             print()
             print(
@@ -86,7 +90,8 @@ class Game:
 
             while not game_over:
                 player_has_blackjack, dealer_has_blackjack = self.check_for_blackjack()
-                if player_has_blackjack or dealer_has_blackjack:
+                if player_has_blackjack:
+                    dealer_has_blackjack = False
                     game_over = True
                     self.show_blackjack_results(
                         player_has_blackjack, dealer_has_blackjack
@@ -104,6 +109,7 @@ class Game:
                     self.player_hand.add_card(self.deck.deal())
                     self.player_hand.display(self.nb_card)
                     if self.player_is_over():
+
                         print("\n                          C'est perdu !")
                         print(
                             "\n                    Vous perdez",
@@ -113,16 +119,24 @@ class Game:
                         game_over = True
                         Bet(self.player_token)
                 else:
-                    player_hand_value = self.player_hand.get_value()
-                    print()
+                    if dealer_has_blackjack:
+                        player_has_blackjack = False
+                        game_over = True
+                        self.show_blackjack_results(
+                            player_has_blackjack, dealer_has_blackjack
+                        )
+                        continue
+                    else:
+                        player_hand_value = self.player_hand.get_value()
+                        print()
 
-                    print(
-                        r"""+-------------------------------------------------------------------+"""
-                    )
-                    print("\nMain de la Banque:")
-                    self.dealer_hand.display(self.nb_card)
-                    dealer_hand_value = self.dealer_hand.get_value()
-                    print()
+                        print(
+                            r"""+-------------------------------------------------------------------+"""
+                        )
+                        print("\nMain de la Banque:")
+                        self.dealer_hand.display(self.nb_card)
+                        dealer_hand_value = self.dealer_hand.get_value()
+                        print()
 
                     if dealer_hand_value < 17:
                         while dealer_hand_value < 17:
@@ -169,6 +183,9 @@ class Game:
             else:
                 game_over = False
 
+        menu = Menu()
+        menu.main_title()
+
     def player_is_over(self):
         return self.player_hand.get_value() > 21
 
@@ -184,7 +201,9 @@ class Game:
 
     def show_blackjack_results(self, player_has_blackjack, dealer_has_blackjack):
         if player_has_blackjack:
+
             print("\nBlackjack !!!!!! Bravo", self.players[0], "!!!!!!")
+
             self.bet.black_jack_gain()
         elif dealer_has_blackjack:
             print("\nBlackjack pour la Banque!")

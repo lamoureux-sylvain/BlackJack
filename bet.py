@@ -8,8 +8,8 @@ class Bet:
 
     def drop_bet(self):
         self.table_bet = 0
-
         print("                       Vous avez", self.player_token, "jetons.")
+
         if self.player_token < 5:
             while self.game_over != "c":
                 self.game_over = input("Vous n'avez plus assez de jeton !! (C)").lower()
