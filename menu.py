@@ -78,9 +78,13 @@ class Menu:
             r"""+===================================================================+ """
         )
         while self.player_choice not in self.choices:
-            self.player_choice = input(
-                "Bienvenue ! Que souhaitez vous faire ? "
-            ).lower()
+            print(
+                r"""|              Bienvenue ! Que souhaitez vous faire ?               |"""
+            )
+            print(
+                r"""+===================================================================+ """
+            )
+            self.player_choice = input().lower()
 
         if self.player_choice == "n":
             Menu().new_game()
@@ -92,8 +96,13 @@ class Menu:
             Menu().quit()
 
     def new_game(self):
-        print("""\n                     NOUVELLE PARTIE !!""")
-        print("------------------------------------------------------------------\n")
+        print(
+            r"""+===================================================================+ """
+        )
+        print(
+            """|                          NOUVELLE PARTIE !!                       |"""
+        )
+        print("---------------------------------------------------------------------\n")
 
     def rules(self):
         self.player_choice = ""
