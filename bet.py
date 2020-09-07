@@ -8,7 +8,9 @@ class Bet:
 
     def drop_bet(self):
         self.table_bet = 0
-        print("Vous avez", self.player_token, "jetons.")
+        print()
+        print("                       Vous avez", self.player_token, "jetons.")
+
         if self.player_token < 5:
             while self.game_over != "c":
                 self.game_over = input("Vous n'avez plus assez de jeton !! (C)").lower()
@@ -16,14 +18,23 @@ class Bet:
             menu.main_title()
 
         while (self.table_bet < 5) or (self.table_bet > self.player_token):
-            self.table_bet = int(input("Combien voulez vous parier ? "))
+            print()
+            self.table_bet = int(
+                input("                     Combien voulez vous parier ? \n")
+            )
             if self.table_bet < 5:
                 print("Vous devez parier au moins 5 jetons...")
             elif self.table_bet > self.player_token:
                 print("Vous n'avez pas cette quantité de jeton...")
 
         self.player_token -= self.table_bet
-        print("Les jeux sont fait !!")
+        print(
+            r"""+===================================================================+ """
+        )
+        print("|                       Les jeux sont fait !!                       |")
+        print(
+            r"""+===================================================================+"""
+        )
         return Bet(self.player_token)
 
     def black_jack_gain(self):

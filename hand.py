@@ -47,19 +47,23 @@ class Hand:
             if self.dealer:
                 print(self.cards[0])
                 print("Carte cachée")
+                print()
             else:
                 print(self.cards[0])
                 print(self.cards[1])
                 print("Valeur:", self.get_value())
+                print()
         else:
             if self.dealer:
                 for card in self.cards:
                     print(card)
                 print("Valeur:", self.get_value())
+                print()
             else:
                 for card in self.cards:
                     print(card)
                 print("Valeur:", self.get_value())
+                print()
 
     def aces(self):
         if self.dealer:
@@ -74,5 +78,6 @@ class Hand:
                 self.ace_value = 0
                 while self.ace_value != "1" and self.ace_value != "11":
                     self.ace_value = input("Valeur de l'As: 1 ou 11 : ")
+                    print()
                 self.check_ace = True
                 self.value += int(self.ace_value)
