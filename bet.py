@@ -8,6 +8,7 @@ class Bet:
 
     def drop_bet(self):
         self.table_bet = 0
+        print()
         print("                       Vous avez", self.player_token, "jetons.")
 
         if self.player_token < 5:
@@ -17,6 +18,7 @@ class Bet:
             menu.main_title()
 
         while (self.table_bet < 5) or (self.table_bet > self.player_token):
+            print()
             self.table_bet = int(
                 input("                     Combien voulez vous parier ? \n")
             )

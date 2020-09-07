@@ -30,10 +30,16 @@ class Game:
         # Partie
         while playing:
             # Affichage du nombre de tour
-
-            print("                               TOUR", self.tour, ":")
             print(
-                "+-------------------------------------------------------------------+\n"
+                r"""+===================================================================+ """
+            )
+            print(
+                "|                              TOUR",
+                self.tour,
+                ":                             |",
+            )
+            print(
+                r"""+===================================================================+ """
             )
             # Compteur de tour
             self.tour += 1
@@ -63,6 +69,7 @@ class Game:
             print(
                 r"""+-------------------------------------------------------------------+"""
             )
+            print()
             print("Votre main:\n")
             self.player_hand.display(self.nb_card)
             print()
@@ -75,6 +82,7 @@ class Game:
             print(
                 r"""+-------------------------------------------------------------------+"""
             )
+            print()
             print("Main de la Banque:\n")
 
             self.dealer_hand.display(self.nb_card)
@@ -97,24 +105,35 @@ class Game:
                         player_has_blackjack, dealer_has_blackjack
                     )
                     continue
+                print(
+                    r"""+===================================================================+ """
+                )
 
                 choice = input(
                     "\n            Que voulez vous faire ? [Piocher / Sauver] "
                 ).lower()
+                print()
                 while choice not in ["p", "s", "piocher", "sauver"]:
                     choice = input(
                         "            Entrer 'piocher' ou 'sauver' (ou P/S) "
                     ).lower()
                 if choice in ["piocher", "p"]:
+                    print("Votre main:\n")
                     self.player_hand.add_card(self.deck.deal())
                     self.player_hand.display(self.nb_card)
                     if self.player_is_over():
-
+                        print(
+                            r"""+===================================================================+ """
+                        )
                         print("\n                          C'est perdu !")
                         print(
                             "\n                    Vous perdez",
                             self.bet.table_bet,
                             "jetons...",
+                        )
+                        print()
+                        print(
+                            r"""+===================================================================+ """
                         )
                         game_over = True
                         Bet(self.player_token)
@@ -133,7 +152,7 @@ class Game:
                         print(
                             r"""+-------------------------------------------------------------------+"""
                         )
-                        print("\nMain de la Banque:")
+                        print("\nMain de la Banque:\n")
                         self.dealer_hand.display(self.nb_card)
                         dealer_hand_value = self.dealer_hand.get_value()
                         print()
@@ -146,7 +165,7 @@ class Game:
                             print(
                                 r"""+-------------------------------------------------------------------+"""
                             )
-                            print("\nLe croupier doit retirer une carte")
+                            print("\nLe croupier doit retirer une carte\n")
                             print("Main de la Banque:")
                             self.dealer_hand.display(self.nb_card)
                             print()
@@ -154,31 +173,33 @@ class Game:
                                 r"""+-------------------------------------------------------------------+"""
                             )
 
-                    print("\nScore final")
+                    print("\n                       Score final\n")
                     print("Votre main:", player_hand_value)
+                    print()
                     print("Main de la banque:", dealer_hand_value)
+                    print()
 
                     if player_hand_value > dealer_hand_value:
-                        print("C'est gagné!")
+                        print("C'est gagné!\n")
                         self.bet.win_gain()
                     elif player_hand_value == dealer_hand_value:
-                        print("Égalité... La Banque gagne!")
+                        print("Égalité... La Banque gagne!\n")
                         print("Vous perdez", self.bet.table_bet, "jetons...")
                         Bet(self.player_token)
                     elif dealer_hand_value > 21:
-                        print("C'est gagné!")
+                        print("C'est gagné!\n")
                         self.bet.win_gain()
                     else:
-                        print("La Banque gagne!")
+                        print("La Banque gagne!\n")
                         print("Vous perdez", self.bet.table_bet, "jetons...")
                         Bet(self.player_token)
                     game_over = True
 
-            again = input("\nContinuer? [O/N] ")
+            again = input("\nContinuer? [O/N] \n")
             while again.lower() not in ["o", "n"]:
                 again = input("Entrer O ou N ")
             if again.lower() == "n":
-                print("\nMerci d'avoir joué!")
+                print("\nMerci d'avoir joué!\n")
                 playing = False
             else:
                 game_over = False
@@ -201,12 +222,29 @@ class Game:
 
     def show_blackjack_results(self, player_has_blackjack, dealer_has_blackjack):
         if player_has_blackjack:
-
-            print("\nBlackjack !!!!!! Bravo", self.players[0], "!!!!!!")
+            print(
+                r"""+===================================================================+ """
+            )
+            print(
+                "|               Blackjack !!!!!! Bravo",
+                self.players[0],
+                "!!!!!!               |",
+            )
+            print(
+                r"""+===================================================================+ """
+            )
 
             self.bet.black_jack_gain()
         elif dealer_has_blackjack:
-            print("\nBlackjack pour la Banque!")
+            print(
+                r"""+===================================================================+ """
+            )
+            print(
+                "|                   Blackjack pour la Banque!                       |"
+            )
+            print(
+                r"""+===================================================================+ """
+            )
 
 
 if __name__ == "__main__":
