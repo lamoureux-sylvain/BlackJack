@@ -42,3 +42,4 @@ Si le score du croupier est supérieur à 21, le joueur gagne.
 ## Gagnant :
 
 Si ni le joueur ni le croupier n’a plus de 21, celui qui a le plus gros score gagne.
+Si le joueur a le même score que le croupier, ce dernier l'emporte.
