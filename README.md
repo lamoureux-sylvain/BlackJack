@@ -1,7 +1,7 @@
  
 # Blackjack
 
-## Énoncer :
+## Énnoncé :
 
 Développer un jeu de Blackjack en Python, en utilisant differentes classes et méthodes.
 
@@ -10,12 +10,12 @@ Le jeu demandera des données au joueur (ex: prendre une carte) et lui montrera 
 Après une partie, le jeu demandera de quitter ou de recommencer.
 
 
-**N'oubliez pas d'utiliser github**
-
 ## But du jeu :
+
 Après avoir reçu deux cartes, le joueur tire des cartes pour s’approcher de la valeur 21 sans la dépasser. Le but du joueur est de battre le croupier en obtenant un total de points supérieur à celui-ci ou en voyant ce dernier dépasser 21. Chaque joueur joue contre le croupier, qui représente la banque, ou le casino, et non contre les autres joueurs.
 
 ## Valeur des carte :
+
 * L’As vaut 1 point ou 11 points, au choix du joueur
 * Les valets, les dames et les rois (les figures), ont une valeur de 10 points
 * Chaque carte numérotée de 2 à 10 a sa valeur nominale (égale au numéro sur la carte)
